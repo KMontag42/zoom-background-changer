@@ -34,8 +34,8 @@ This file should contain the following:
 
 ```json
 {
-  "prompt_template": "Today is {date} and the weather is {weather} in {location}.",
-  "location": "Boston, MA"
+  "prompt": "Today is {date} and the weather is {weather} in {location}.",
+  "city": "Boston"
 }
 ```
 

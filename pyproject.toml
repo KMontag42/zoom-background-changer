@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "zoom-background-changer"
+version = "0.1.1"
+description = "Changes your Zoom background using OpenAI Image Generation."
+authors = ["Kyle Montag <thekylemontag@gmail.com>"]
+readme = "README.md"
+packages = [{include = "zoom_background_changer"}]
+
+[tool.poetry.dependencies]
+python = "^3.9"
+openai = "^0.27.4"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+
+[tool.poetry.scripts]
+zoom-background-changer = "zoom_background_changer.main:main"

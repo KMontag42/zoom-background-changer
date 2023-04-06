@@ -55,7 +55,7 @@ def build_prompt(config: dict) -> str:
 
     if "city" in config:
         template = """A colorful Zoom background for {date} in {city}. \
-        The weather in {city} is {weather} and {temperature} degrees farenheight today. \
+        The weather in {city} is {weather} and {temperature} degrees fahrenheit today. \
         Include the {city} skyline. \
         Photo, Skyline, Weather, Real Photo, Real Skyline, Real Weather. \
         """

@@ -48,7 +48,7 @@ This file should contain the following:
 ### Available Variables
 
 - `{date}`: The current date
-- `{city}`: The current city, set from the `city` key in the `.zoom-background-changer` file. Defaults to `Boston, MA`. If set, the following extra variables will be available:
+- `{city}`: The current city name, set from the `city` key in the `.zoom-background-changer` file. Defaults to `Boston`. If set, the following extra variables will be available:
   - `{weather}`: The current weather, from `https://wttr.in/`
   - `{temperature}`: The current temperature, from `https://wttr.in/`
 

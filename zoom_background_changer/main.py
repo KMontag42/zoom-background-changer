@@ -7,7 +7,7 @@ import openai
 
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
-ZOOM_DIR = f"/Users/{os.getlogin()}/Library/Application Support/zoom.us/data/VirtualBkgnd_Custom/"
+OSX_ZOOM_DIR = f"/Users/{os.getlogin()}/Library/Application Support/zoom.us/data/VirtualBkgnd_Custom/"
 
 
 def read_config_file() -> dict:
@@ -32,11 +32,15 @@ def read_config_file() -> dict:
             )
 
     config = json.load(open(config_file_path))
-    city_wttr = json.load(
-        urllib.request.urlopen(f"https://wttr.in/{config['city']}?format=j1")
-    )
-    config["weather"] = city_wttr["current_condition"][0]["weatherDesc"][0]["value"]
-    config["temperature"] = city_wttr["current_condition"][0]["temp_F"]
+
+    if "city" in config:
+        config["city"] = urllib.parse.quote(config["city"])
+        city_wttr = json.load(
+            urllib.request.urlopen(f"https://wttr.in/{config['city']}?format=j1")
+        )
+        config["weather"] = city_wttr["current_condition"][0]["weatherDesc"][0]["value"]
+        config["temperature"] = city_wttr["current_condition"][0]["temp_F"]
+
     return config
 
 
@@ -49,11 +53,16 @@ def build_prompt(config: dict) -> str:
     Returns:
         str: The prompt for the OpenAI API."""
 
-    template = """A colorful Zoom background for {date}.
-      The weather in {city} is {weather} and {temperature} degrees farenheight today.
-      Include the {city} skyline.
-      Photo, Skyline, Weather, Real Photo, Real Skyline, Real Weather.
-      """
+    if "city" in config:
+        template = """A colorful Zoom background for {date} in {city}. \
+        The weather in {city} is {weather} and {temperature} degrees farenheight today. \
+        Include the {city} skyline. \
+        Photo, Skyline, Weather, Real Photo, Real Skyline, Real Weather. \
+        """
+    else:
+        template = """A colorful Zoom background for {date}. \
+        Photo, Skyline, Weather, Real Photo, Real Skyline, Real Weather. \
+        """
 
     try:
         template = config["prompt"]
@@ -64,9 +73,7 @@ def build_prompt(config: dict) -> str:
 
     prompt = template.format(
         date=today,
-        city=config["city"],
-        weather=config["weather"],
-        temperature=config["temperature"],
+        **config
     )
 
     return prompt
@@ -87,10 +94,10 @@ def main():
     new_image_url = generate_new_image()
 
     # Get the name of the current file in the directory
-    current_file = os.listdir(ZOOM_DIR)[0]
+    current_file = os.listdir(OSX_ZOOM_DIR)[0]
 
     # Download the new image from the URL and save it as the current file
-    urllib.request.urlretrieve(new_image_url, ZOOM_DIR + current_file)
+    urllib.request.urlretrieve(new_image_url, OSX_ZOOM_DIR + current_file)
 
 
 if __name__ == "__main__":

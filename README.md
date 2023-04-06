@@ -23,7 +23,7 @@ pip install zoom-background-changer
 ## Usage
 
 ```bash
-change-zoom-background
+zoom-background-changer
 ```
 
 ## Prompt Template
@@ -34,7 +34,7 @@ This file should contain the following:
 
 ```json
 {
-  "prompt": "Today is {date} and the weather is {weather} in {location}.",
+  "prompt": "Today is {date} and the weather is {weather} in {city}.",
   "city": "Boston"
 }
 ```
@@ -43,7 +43,7 @@ This file should contain the following:
 
 - `{date}`: The current date
 - `{weather}`: The current weather, from `https://wttr.in/`
-- `{location}`: The current location, set from the `location` key in the `.zoom-background-changer` file. Defaults to `Boston, MA`.
+- `{city}`: The current city, set from the `city` key in the `.zoom-background-changer` file. Defaults to `Boston, MA`.
 - `{time}`: The current time
 
 If you would like to request other variables to be available, please open an issue!

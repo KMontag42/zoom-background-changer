@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "zoom-background-changer"
-version = "0.1.1"
+version = "0.1.2"
 description = "Changes your Zoom background using OpenAI Image Generation."
 authors = ["Kyle Montag <thekylemontag@gmail.com>"]
 readme = "README.md"
